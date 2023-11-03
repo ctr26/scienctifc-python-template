@@ -21,10 +21,10 @@ jobs:
           miniforge-version: latest
           mamba-version: "*"
           use-mamba: true
+          python-version: ${{ matrix.python-version }}
       - name: constructor build
-        shell: bash -el {0}
         run: constructor --output-dir dist/main
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{ matrix.os }}
+          name: ${{ matrix.os }}${{ matrix.python-version}}
           path: dist/main/**/*
