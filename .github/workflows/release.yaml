@@ -26,7 +26,7 @@ jobs:
         run: constructor --output-dir dist/main
       - name: Pyinstaller
         run: |
-          pyinstaller --onefile --clean --name "myapp" --distpath dist/main myapp.py
+          pyinstaller --onefile --clean --name "" --distpath dist/main src/main.py
       - uses: actions/upload-artifact@v3
         with:
           name: installer-${{ matrix.os }}${{ matrix.python-version}}
