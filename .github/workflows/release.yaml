@@ -24,7 +24,12 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: constructor build
         run: constructor --output-dir dist/main
+      - name: Pyinstaller
+        run: |
+          pyinstaller --onefile --clean --name "myapp" --distpath dist/main myapp.py
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{ matrix.os }}${{ matrix.python-version}}
+          name: installer-${{ matrix.os }}${{ matrix.python-version}}
           path: dist/main/**/*
+        
+        
