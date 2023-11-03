@@ -6,5 +6,6 @@ dependencies:
 - gcc
 - make
 - pyinstaller
+- pip
 - pip:
   - -e .
