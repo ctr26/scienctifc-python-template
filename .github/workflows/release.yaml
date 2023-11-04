@@ -6,7 +6,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     defaults:
       run:
-        shell: bash -el {0}
+        shell: ${{ matrix.shell }}
     strategy:
       fail-fast: false
       matrix:
@@ -18,7 +18,7 @@ jobs:
           - os: windows-latest
             shell: cmd /C call {0}
           - os: macos-latest
-            shell:  bash -l {0}
+            shell: bash -l {0}
     steps:
       - uses: actions/checkout@v2
       - uses: conda-incubator/setup-miniconda@v2
