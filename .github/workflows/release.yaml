@@ -30,18 +30,18 @@ jobs:
           use-mamba: true
           python-version: ${{ matrix.python-version }}
       - name: constructor build
-        run: constructor --output-dir dist/main
+        run: constructor --output-dir dist/main --installer_filename constructor-${{ matrix.os }}-${{ matrix.python-version}} .
       - name: Pyinstaller
         run: |
-          pyinstaller --onefile --clean --name "installer-${{ matrix.os }}${{ matrix.python-version}}" --distpath dist/main src/science/main.py
-      - uses: actions/upload-artifact@v3
-        with:
-          name: installer-${{ matrix.os }}${{ matrix.python-version}}
-          path: dist/main/**/*
+          pyinstaller --onefile --clean --name "installer-${{ matrix.os }}-${{ matrix.python-version}}" --distpath dist/main src/science/main.py
+      # - uses: actions/upload-artifact@v3
+      #   with:
+      #     name: installer-${{ matrix.os }}${{ matrix.python-version}}
+      #     path: dist/main/**/*
       - uses: softprops/action-gh-release@v1
         with:
           draft: true
           files: dist/main/*
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is  
         
