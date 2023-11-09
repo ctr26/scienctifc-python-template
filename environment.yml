@@ -1,10 +1,9 @@
 channels:
-- conda-forge
 - anaconda
 - defaults
+- conda-forge
 dependencies:
 - constructor
-- gcc
 - make
 - pyinstaller
 - pip
