@@ -3,21 +3,20 @@ on: [push]
 jobs:
   constructor:
     name: conda build (${{ matrix.python-version }}, ${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}-latest
     defaults:
       run:
         shell: ${{ matrix.shell }}
     strategy:
-      fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu, windows, macos]
         python-version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
         include:
-          - os: ubuntu-latest
+          - os: ubuntu
             shell: bash -l {0}
-          - os: windows-latest
+          - os: windows
             shell: cmd /C call {0}
-          - os: macos-latest
+          - os: macos
             shell: bash -l {0}
     steps:
       - uses: actions/checkout@v2
@@ -30,7 +29,7 @@ jobs:
           use-mamba: true
           python-version: ${{ matrix.python-version }}
       - name: constructor build
-        run: constructor --output-dir dist/main --installer_filename constructor-${{ matrix.os }}-${{ matrix.python-version}} .
+        run: constructor --output-dir dist/main .
       - name: Pyinstaller
         run: |
           pyinstaller --onefile --clean --name "installer-${{ matrix.os }}-${{ matrix.python-version}}" --distpath dist/main src/science/main.py
